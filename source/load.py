@@ -18,7 +18,8 @@ def load_weather(data):
                 latitude FLOAT,
                 longitude FLOAT,
                 temperature FLOAT,
-                time TIMESTAMP
+                time TIMESTAMP ,
+                UNIQUE (latitude, longitude, time)
             )
         """)
 
@@ -32,6 +33,7 @@ def load_weather(data):
                 time
             )
             VALUES (%s, %s, %s, %s)
+            ON CONFLICT (latitude, longitude, time) DO NOTHING
         """, (
             data["latitude"],
             data["longitude"],
